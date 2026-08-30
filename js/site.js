@@ -376,7 +376,7 @@
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(150, 180, 255, 0.75)";
+        ctx.fillStyle = "rgba(53, 99, 233, 0.65)";
         ctx.fill();
       });
 
@@ -389,7 +389,7 @@
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
-            ctx.strokeStyle = "rgba(150, 180, 255, " + (1 - d / linkDist) * 0.35 + ")";
+            ctx.strokeStyle = "rgba(53, 99, 233, " + (1 - d / linkDist) * 0.3 + ")";
             ctx.lineWidth = 1;
             ctx.stroke();
           }
@@ -471,14 +471,16 @@
       } catch (e) {}
     });
 
+    var footer = document.querySelector(".site-footer");
+
     function onScroll() {
-      var boxBottom = firstBox.getBoundingClientRect().bottom + window.scrollY;
-      var past = window.scrollY > boxBottom + 80;
-      var nearFooter =
-        document.body.scrollHeight - (window.scrollY + window.innerHeight) < 200;
-      bar.classList.toggle("is-visible", past && !nearFooter);
+      var boxRect = firstBox.getBoundingClientRect();
+      var past = boxRect.bottom < window.innerHeight * 0.6;
+      var footerVisible = footer && footer.getBoundingClientRect().top < window.innerHeight;
+      bar.classList.toggle("is-visible", past && !footerVisible);
     }
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
     onScroll();
   }
 
