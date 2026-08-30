@@ -326,6 +326,63 @@ body::before {
   display: block;
 }
 
+/* ---------- Hero canvas (particle network) ---------- */
+
+#hero-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.55;
+}
+
+/* ---------- Ticker(横スクロールする帯) ---------- */
+
+.ticker {
+  background: var(--color-ink);
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: tickerScroll 26s linear infinite;
+}
+
+.ticker-track span {
+  flex: none;
+  padding: 12px 32px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #cbd2dd;
+  white-space: nowrap;
+  position: relative;
+}
+
+.ticker-track span::after {
+  content: "◆";
+  position: absolute;
+  right: -4px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.5rem;
+  color: var(--color-accent);
+}
+
+@keyframes tickerScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track { animation: none; }
+}
+
 /* ---------- Section headings ---------- */
 
 .section-title {
@@ -473,13 +530,51 @@ body::before {
 .article-body { max-width: var(--content-width); margin: 0 auto; padding: 0 20px 64px; }
 
 .article-body h2 {
+  position: relative;
+  display: inline-block;
   font-family: var(--font-body);
   font-weight: 800;
   font-size: 1.32rem;
   letter-spacing: -0.005em;
-  margin: 48px 0 18px;
+  margin: 48px 0 22px;
   padding-top: 8px;
+  padding-bottom: 10px;
 }
+
+.article-body h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 4px;
+  width: 0;
+  background: var(--color-accent);
+  border-radius: 999px;
+  transition: width 0.7s var(--ease) 0.1s;
+}
+
+.article-body h2.is-visible::after { width: 56px; }
+
+.cover-img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  margin: 0 0 28px;
+}
+
+.article-body .cover-img { margin-top: 0; }
+
+/* ワイプ演出(単純なフェードではなく左から現れる) */
+.cover-img.reveal {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.9s var(--ease);
+}
+
+.cover-img.reveal.is-visible { clip-path: inset(0 0 0 0); }
 
 .article-body h3 { font-size: 1.06rem; margin: 32px 0 12px; font-weight: 700; }
 .article-body p { margin: 0 0 20px; }
@@ -832,6 +927,98 @@ body::before {
 
 .site-footer a { color: #cbd2dd; }
 .site-footer a:hover { color: #fff; }
+
+/* ---------- 追従ミニCTAバー ---------- */
+
+.floating-cta {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 18;
+  background: var(--color-ink);
+  color: #f3efe2;
+  transform: translateY(110%);
+  transition: transform 0.4s var(--ease);
+  box-shadow: 0 -12px 32px rgba(0, 0, 0, 0.18);
+}
+
+.floating-cta.is-visible { transform: translateY(0); }
+
+.floating-cta .wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+}
+
+.floating-cta .fc-text {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.86rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.floating-cta .fc-close {
+  flex: none;
+  background: none;
+  border: none;
+  color: #cbd2dd;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.floating-cta .btn-affiliate {
+  flex: none;
+  padding: 10px 20px;
+  font-size: 0.84rem;
+}
+
+@media (max-width: 560px) {
+  .floating-cta .fc-text { display: none; }
+}
+
+/* ---------- スクロールレール(記事の現在地) ---------- */
+
+.scroll-rail {
+  position: fixed;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 12;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+}
+
+.scroll-rail.is-visible { opacity: 1; }
+
+.scroll-rail button {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+  background: var(--color-surface);
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.3s var(--ease), border-color 0.3s var(--ease), background 0.3s var(--ease);
+}
+
+.scroll-rail button.is-active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  transform: scale(1.4);
+}
+
+@media (max-width: 900px) {
+  .scroll-rail { display: none; }
+}
 
 /* ---------- Responsive ---------- */
 

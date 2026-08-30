@@ -36,7 +36,9 @@
       ".pros-cons .box",
       ".affiliate-box",
       ".rank-item",
-      ".author-box"
+      ".author-box",
+      ".cover-img",
+      ".article-body h2"
     ];
 
     var els = Array.prototype.slice.call(document.querySelectorAll(selectors.join(",")));
@@ -305,6 +307,226 @@
     });
   }
 
+  var reducedMotion =
+    window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- 10) ヒーローの粒子ネットワーク(canvas) ---------- */
+  function initParticles() {
+    var canvas = document.getElementById("hero-canvas");
+    if (!canvas || reducedMotion) return;
+    var ctx = canvas.getContext("2d");
+    var hero = canvas.parentElement;
+    var particles = [];
+    var mouse = { x: null, y: null };
+    var count = window.innerWidth < 640 ? 26 : 55;
+
+    function resize() {
+      canvas.width = hero.offsetWidth;
+      canvas.height = hero.offsetHeight;
+    }
+
+    function makeParticles() {
+      particles = [];
+      for (var i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: (Math.random() - 0.5) * 0.35,
+          r: Math.random() * 1.6 + 0.6
+        });
+      }
+    }
+
+    resize();
+    makeParticles();
+    window.addEventListener("resize", function () {
+      resize();
+      makeParticles();
+    });
+    hero.addEventListener("mousemove", function (e) {
+      var rect = hero.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    });
+    hero.addEventListener("mouseleave", function () {
+      mouse.x = null;
+      mouse.y = null;
+    });
+
+    var linkDist = 130;
+
+    function tick() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(function (p) {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+        if (mouse.x !== null) {
+          var dx = p.x - mouse.x;
+          var dy = p.y - mouse.y;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 90) {
+            p.x += (dx / dist) * 0.6;
+            p.y += (dy / dist) * 0.6;
+          }
+        }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(150, 180, 255, 0.75)";
+        ctx.fill();
+      });
+
+      for (var i = 0; i < particles.length; i++) {
+        for (var j = i + 1; j < particles.length; j++) {
+          var a = particles[i];
+          var b = particles[j];
+          var d = Math.hypot(a.x - b.x, a.y - b.y);
+          if (d < linkDist) {
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.strokeStyle = "rgba(150, 180, 255, " + (1 - d / linkDist) * 0.35 + ")";
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+      }
+      window.requestAnimationFrame(tick);
+    }
+    window.requestAnimationFrame(tick);
+  }
+
+  /* ---------- 11) 見出しのスクランブル演出 ---------- */
+  function initTextScramble() {
+    if (reducedMotion) return;
+    var el = document.querySelector("[data-scramble]");
+    if (!el) return;
+    var chars = "ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+    // テキストノードだけを対象にし、<br>等のタグ構造は保持する
+    var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+    var nodes = [];
+    var n;
+    while ((n = walker.nextNode())) nodes.push(n);
+
+    var globalIndex = 0;
+    nodes.forEach(function (node) {
+      var original = node.textContent;
+      var chars_arr = original.split("");
+      chars_arr.forEach(function (ch, idx) {
+        (function (node, charIndex, finalChar, delayIndex) {
+          if (finalChar.trim() === "") return;
+          var iterations = 0;
+          var maxIterations = 7;
+          var delay = delayIndex * 28;
+          window.setTimeout(function () {
+            var interval = window.setInterval(function () {
+              var current = node.textContent.split("");
+              current[charIndex] =
+                iterations < maxIterations ? chars[Math.floor(Math.random() * chars.length)] : finalChar;
+              node.textContent = current.join("");
+              iterations++;
+              if (iterations > maxIterations) window.clearInterval(interval);
+            }, 35);
+          }, delay);
+        })(node, idx, ch, globalIndex);
+        globalIndex++;
+      });
+    });
+  }
+
+  /* ---------- 12) 追従ミニCTAバー ---------- */
+  function initFloatingCta() {
+    var firstBox = document.querySelector(".affiliate-box");
+    if (!firstBox) return;
+    var link = firstBox.querySelector(".btn-affiliate");
+    var heading = firstBox.querySelector("h4");
+    if (!link) return;
+
+    var dismissed = false;
+    try {
+      dismissed = sessionStorage.getItem("wh-fc-dismissed") === "1";
+    } catch (e) {}
+    if (dismissed) return;
+
+    var bar = document.createElement("div");
+    bar.className = "floating-cta";
+    bar.innerHTML =
+      '<div class="wrap">' +
+      '<span class="fc-text"></span>' +
+      '<a class="btn-affiliate" href="' + link.getAttribute("href") + '">' + link.textContent + "</a>" +
+      '<button type="button" class="fc-close" aria-label="閉じる">×</button>' +
+      "</div>";
+    bar.querySelector(".fc-text").textContent = heading ? heading.textContent : "気になる方はこちら";
+    document.body.appendChild(bar);
+
+    bar.querySelector(".fc-close").addEventListener("click", function () {
+      bar.classList.remove("is-visible");
+      try {
+        sessionStorage.setItem("wh-fc-dismissed", "1");
+      } catch (e) {}
+    });
+
+    function onScroll() {
+      var boxBottom = firstBox.getBoundingClientRect().bottom + window.scrollY;
+      var past = window.scrollY > boxBottom + 80;
+      var nearFooter =
+        document.body.scrollHeight - (window.scrollY + window.innerHeight) < 200;
+      bar.classList.toggle("is-visible", past && !nearFooter);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  }
+
+  /* ---------- 13) スクロールレール(記事の現在地インジケーター) ---------- */
+  function initScrollRail() {
+    var article = document.querySelector(".article-body");
+    if (!article) return;
+    var headings = Array.prototype.slice.call(article.querySelectorAll("h2"));
+    if (headings.length < 2) return;
+
+    headings.forEach(function (h, i) {
+      if (!h.id) h.id = "wh-section-" + i;
+    });
+
+    var rail = document.createElement("div");
+    rail.className = "scroll-rail";
+    headings.forEach(function (h) {
+      var dot = document.createElement("button");
+      dot.type = "button";
+      dot.setAttribute("aria-label", h.textContent);
+      dot.dataset.target = h.id;
+      dot.addEventListener("click", function () {
+        document.getElementById(h.id).scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+      rail.appendChild(dot);
+    });
+    document.body.appendChild(rail);
+
+    var dots = Array.prototype.slice.call(rail.querySelectorAll("button"));
+
+    function onScroll() {
+      var pos = window.scrollY + 160;
+      rail.classList.toggle(
+        "is-visible",
+        window.scrollY > 200 && window.scrollY + window.innerHeight < document.body.scrollHeight - 100
+      );
+      var current = headings[0];
+      headings.forEach(function (h) {
+        if (h.offsetTop <= pos) current = h;
+      });
+      dots.forEach(function (d) {
+        d.classList.toggle("is-active", d.dataset.target === current.id);
+      });
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  }
+
   safe("reveal", initReveal);
   safe("themeToggle", initThemeToggle);
   safe("readingProgress", initReadingProgress);
@@ -314,4 +536,8 @@
   safe("tilt", initTilt);
   safe("parallax", initParallax);
   safe("countUp", initCountUp);
+  safe("particles", initParticles);
+  safe("textScramble", initTextScramble);
+  safe("floatingCta", initFloatingCta);
+  safe("scrollRail", initScrollRail);
 })();
