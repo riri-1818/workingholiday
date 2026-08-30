@@ -2,7 +2,8 @@
 
 オーストラリアへのワーキングホリデー・留学で「渡航後に初めて困ること」を先回りで解決する、実務特化の静的アフィリエイトサイト。
 
-**公開URL: https://riri-1818.github.io/workholi-jitsumu-note/**(2026-08-30 GitHub Pagesで公開済み。リポジトリ: https://github.com/riri-1818/workholi-jitsumu-note )
+**公開URL: https://riri-1818.github.io/workingholiday/**(2026-08-30 GitHub Pagesで公開済み。リポジトリ: https://github.com/riri-1818/workingholiday )
+旧URL(workholi-jitsumu-note)からリポジトリ名変更済み。GitHubの自動リダイレクトが一定期間効くが、外部にリンクを貼る際は新URLを使うこと。
 
 ## 現在の状態(2026-08-30時点)
 
@@ -67,6 +68,14 @@ git push -u origin main
 ## 現地生活グッズ(物販アフィリエイト)について
 
 炊飯器・洗濯ネットのような物販アフィリエイトも実務ガイドの文脈で自然に扱える(電圧対応・シェアハウス事情という「判断基準」で書けば、ただの「おすすめ3選」ではなく実務記事になる)。ランキング形式(`.ranking-list`)のデザインパーツを追加済み。日本のASP(A8.net、もしもアフィリエイト、Amazonアソシエイト、楽天アフィリエイト等)で商材を探す想定。
+
+## 公開後の技術対応(2026-08-31)
+
+- [x] favicon(タブに出るアイコン)を追加。青地に白の「W」のシンプルなロゴマーク(`favicon.svg`、オリジナル作成)
+- [x] OGP/Twitter Cardメタタグを全18ページに追加。X/LINE/Instagramのbioリンク等でシェアした時に、タイトル・説明文・画像がカード表示されるようになる
+- [x] `robots.txt` / `sitemap.xml` を追加(検索エンジンのクロール・インデックス登録を助ける)
+- [ ] Google Search Console / Bing Webmaster Toolsへの登録(本人のGoogleアカウントでの手動登録が必要なため未対応。sitemap.xmlのURLをそのまま登録すればOK)
+- [ ] OGP画像は今のところ各記事のカバー写真(Unsplash)をそのまま使用。ブランドロゴ入りの専用OGP画像(1200×630px)を作るとより見栄えが良くなる
 
 ## 次にやること
 
