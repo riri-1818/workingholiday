@@ -1,21 +1,27 @@
 /* ワーホリ実務ノート / site.js
-   読みやすさを壊さない範囲での「動的」演出をまとめたファイル。
-   全機能はプログレッシブエンハンスメント: JS未対応・無効環境でも
-   通常どおり全コンテンツが読める状態を維持する。
-   1) スクロールでのフェードイン演出
-   2) ダークモード手動切り替え(localStorage記憶)
-   3) 記事の読了プログレスバー
-   4) 目次(TOC)の現在地ハイライト
-   5) トップへ戻るボタン
-   6) ボタンのリップルエフェクト
+   「動的」演出まとめ。全機能は独立した try/catch で保護し、
+   1つが失敗しても他の機能・記事本文の表示に影響しない設計。
+   スクロール演出は「JSが動く前提で要素を隠す」リスクを避けるため、
+   多重のフェイルセーフ(強制表示タイマー・シンプルな判定式)を入れている。
 */
 (function () {
   "use strict";
 
-  /* ---------- 1) スクロールフェードイン ---------- */
-  function initReveal() {
-    if (!("IntersectionObserver" in window)) return;
+  function safe(name, fn) {
+    try {
+      fn();
+    } catch (e) {
+      if (window.console && console.warn) {
+        console.warn("[site.js] " + name + " failed:", e);
+      }
+    }
+  }
 
+  var canHover =
+    window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  /* ---------- 1) スクロールフェードイン(フェイルセーフ付き) ---------- */
+  function initReveal() {
     var selectors = [
       ".hero-kicker",
       ".hero-premium h1",
@@ -33,31 +39,59 @@
       ".author-box"
     ];
 
-    var els = Array.prototype.slice.call(
-      document.querySelectorAll(selectors.join(","))
-    );
+    var els = Array.prototype.slice.call(document.querySelectorAll(selectors.join(",")));
     if (!els.length) return;
 
     els.forEach(function (el, i) {
       el.classList.add("reveal");
-      el.style.transitionDelay = Math.min(i % 8, 7) * 55 + "ms";
+      el.style.transitionDelay = Math.min(i % 8, 7) * 45 + "ms";
     });
 
-    var io = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
-    );
+    var revealed = false;
 
-    els.forEach(function (el) {
-      io.observe(el);
-    });
+    function revealAll() {
+      if (revealed) return;
+      revealed = true;
+      els.forEach(function (el) {
+        el.classList.add("is-visible");
+      });
+    }
+
+    // フェイルセーフ: どんな事情があっても2秒後には必ず全部見える状態にする
+    var failSafeTimer = window.setTimeout(revealAll, 2000);
+
+    function check() {
+      var vh = window.innerHeight;
+      var allDone = true;
+      els.forEach(function (el) {
+        if (el.classList.contains("is-visible")) return;
+        var rect = el.getBoundingClientRect();
+        if (rect.top < vh * 0.94 && rect.bottom > 0) {
+          el.classList.add("is-visible");
+        } else {
+          allDone = false;
+        }
+      });
+      if (allDone) {
+        window.clearTimeout(failSafeTimer);
+        window.removeEventListener("scroll", onScroll);
+        window.removeEventListener("resize", onScroll);
+      }
+    }
+
+    var ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(function () {
+        check();
+        ticking = false;
+      });
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    check();
   }
 
   /* ---------- 2) ダークモード手動切り替え ---------- */
@@ -66,12 +100,8 @@
     if (!nav) return;
 
     function systemPrefersDark() {
-      return (
-        window.matchMedia &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches
-      );
+      return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
     }
-
     function currentMode() {
       var explicit = document.documentElement.getAttribute("data-theme");
       if (explicit) return explicit;
@@ -81,9 +111,7 @@
     var stored = null;
     try {
       stored = localStorage.getItem("wh-theme");
-    } catch (e) {
-      /* localStorage無効環境: 何もしない */
-    }
+    } catch (e) {}
     if (stored === "dark" || stored === "light") {
       document.documentElement.setAttribute("data-theme", stored);
     }
@@ -103,9 +131,7 @@
       btn.textContent = next === "dark" ? "☀️" : "🌙";
       try {
         localStorage.setItem("wh-theme", next);
-      } catch (e) {
-        /* 保存できなくても表示切り替え自体は機能する */
-      }
+      } catch (e) {}
     });
   }
 
@@ -129,7 +155,6 @@
       pct = Math.min(Math.max(pct, 0), 1);
       fill.style.width = pct * 100 + "%";
     }
-
     window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
     update();
@@ -139,10 +164,8 @@
   function initTocHighlight() {
     var toc = document.querySelector(".toc");
     if (!toc) return;
-
     var links = Array.prototype.slice.call(toc.querySelectorAll('a[href^="#"]'));
     if (!links.length) return;
-
     var targets = links
       .map(function (a) {
         return document.getElementById(a.getAttribute("href").slice(1));
@@ -160,7 +183,6 @@
         a.classList.toggle("is-active", a.getAttribute("href") === "#" + current.id);
       });
     }
-
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
   }
@@ -177,11 +199,9 @@
     function toggle() {
       btn.classList.toggle("is-visible", window.scrollY > 480);
     }
-
     btn.addEventListener("click", function () {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
-
     window.addEventListener("scroll", toggle, { passive: true });
     toggle();
   }
@@ -191,7 +211,6 @@
     document.addEventListener("click", function (e) {
       var btn = e.target.closest && e.target.closest(".btn-affiliate");
       if (!btn) return;
-
       var circle = document.createElement("span");
       circle.className = "ripple";
       var rect = btn.getBoundingClientRect();
@@ -206,10 +225,93 @@
     });
   }
 
-  initReveal();
-  initThemeToggle();
-  initReadingProgress();
-  initTocHighlight();
-  initBackToTop();
-  initRipple();
+  /* ---------- 7) カードの3Dチルト(立体感) ---------- */
+  function initTilt() {
+    if (!canHover) return;
+    var cards = document.querySelectorAll(".pillar-card, .article-card, .rank-item");
+    cards.forEach(function (card) {
+      card.classList.add("tilt-ready");
+      var raf = null;
+      card.addEventListener("mousemove", function (e) {
+        if (raf) return;
+        raf = window.requestAnimationFrame(function () {
+          var rect = card.getBoundingClientRect();
+          var x = (e.clientX - rect.left) / rect.width - 0.5;
+          var y = (e.clientY - rect.top) / rect.height - 0.5;
+          var rotateX = (-y * 8).toFixed(2);
+          var rotateY = (x * 10).toFixed(2);
+          card.style.transform =
+            "perspective(900px) rotateX(" +
+            rotateX +
+            "deg) rotateY(" +
+            rotateY +
+            "deg) translateY(-6px) scale(1.015)";
+          raf = null;
+        });
+      });
+      card.addEventListener("mouseleave", function () {
+        card.style.transform = "";
+      });
+    });
+  }
+
+  /* ---------- 8) ヒーロー写真のパララックス ---------- */
+  function initParallax() {
+    var photo = document.querySelector(".hero-photo");
+    if (!photo) return;
+    var hero = document.querySelector(".hero-premium");
+    var ticking = false;
+    function update() {
+      var rect = hero.getBoundingClientRect();
+      if (rect.bottom > 0 && rect.top < window.innerHeight) {
+        var offset = (window.scrollY - hero.offsetTop) * 0.12;
+        photo.style.transform = "translateY(" + offset + "px) scale(1.04)";
+      }
+      ticking = false;
+    }
+    window.addEventListener(
+      "scroll",
+      function () {
+        if (!ticking) {
+          window.requestAnimationFrame(update);
+          ticking = true;
+        }
+      },
+      { passive: true }
+    );
+    update();
+  }
+
+  /* ---------- 9) 数字のカウントアップ ---------- */
+  function initCountUp() {
+    var spans = document.querySelectorAll(".hero-stats span");
+    spans.forEach(function (span) {
+      var match = span.textContent.match(/\d+/);
+      if (!match) return;
+      var target = parseInt(match[0], 10);
+      var before = span.textContent.slice(0, match.index);
+      var after = span.textContent.slice(match.index + match[0].length);
+      var duration = 900;
+      var startTime = null;
+      function frame(ts) {
+        if (!startTime) startTime = ts;
+        var progress = Math.min((ts - startTime) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        var current = Math.round(target * eased);
+        span.textContent = before + current + after;
+        if (progress < 1) window.requestAnimationFrame(frame);
+      }
+      window.requestAnimationFrame(frame);
+    });
+  }
+
+  safe("reveal", initReveal);
+  safe("themeToggle", initThemeToggle);
+  safe("readingProgress", initReadingProgress);
+  safe("tocHighlight", initTocHighlight);
+  safe("backToTop", initBackToTop);
+  safe("ripple", initRipple);
+  safe("tilt", initTilt);
+  safe("parallax", initParallax);
+  safe("countUp", initCountUp);
 })();
