@@ -2,6 +2,8 @@
 
 オーストラリアへのワーキングホリデー・留学で「渡航後に初めて困ること」を先回りで解決する、実務特化の静的アフィリエイトサイト。
 
+**公開URL: https://riri-1818.github.io/workholi-jitsumu-note/**(2026-08-30 GitHub Pagesで公開済み。リポジトリ: https://github.com/riri-1818/workholi-jitsumu-note )
+
 ## 現在の状態(2026-08-30時点)
 
 - サイトの雛形が完成: トップページ・aboutページ・カテゴリページ5本・記事11本

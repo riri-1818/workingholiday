@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://riri-1818.github.io/workingholiday/sitemap.xml
