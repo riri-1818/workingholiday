@@ -63,7 +63,8 @@
 - [x] 楽天・A8net・Felix mobile・Wiseの実体験を8記事に反映。**「Kmartで十分」「たびほは後悔している」といった、収益より正直さを優先した内容**も含む
 - [x] 事実関係の裏取り(Bセクション)完了。TFN28日ルール、RHCA11ヶ国、NSW罰金額($344/$349)、felix mobile料金、銀行の14日前ルール、いずれも公式情報で確認・具体化
 - [x] Google Analytics(GA4)導入(2026-08-31): 計測ID `G-0YM2E9G892` のgtag.jsを全19ページ(index/about/記事12本/カテゴリ5本)の`<head>`に設置。本番反映済み。
-- [x] 新記事追加(2026-08-31): 「交換留学に落ちた人へ。ワーホリという選択肢を考えるための比較と、よくある不安への答え」(`articles/working-holiday-after-rejection.html`)。渡航前準備カテゴリに追加。rei自身の実体験(GPA1.19→交換留学全落ち→ワーホリ選択)がベース。index.html・category/pre-departure.html・sitemap.xmlに反映済み、記事数13本に更新
+- [x] 新記事追加(2026-08-31): 「交換留学に落ちた人へ。ワーホリという選択肢を考えるための比較と、よくある不安への答え」(`articles/working-holiday-after-rejection.html`)。渡航前準備カテゴリに追加。rei自身の実体験(GPA1.19→交換留学全落ち→ワーホリ選択)がベース。index.html・category/pre-departure.html・sitemap.xmlに反映済み
+- [x] 新記事追加(2026-08-31): 「IELTS独学対策、4.0から6.0まで上げた方法」(`articles/ielts-study-guide.html`)。英語学習サービスカテゴリに追加。楽天(過去問Cambridge IELTS19・IDP公認問題集・文脈で覚えるIELTS英単語、いずれも実際使用)+ネイティブキャンプ(a8mat=4BAITN+DBVECY+35VG+6B70H、スピーキング4.0→5.5の実体験)のアフィリンクを掲載。index.html・category/english-learning.html・sitemap.xmlに反映済み、記事数14本に更新
 
 ## 進め方の提案
 
