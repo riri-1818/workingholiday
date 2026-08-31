@@ -577,6 +577,28 @@ body::before {
 
 .article-body h3 { font-size: 1.06rem; margin: 32px 0 12px; font-weight: 700; }
 .article-body p { margin: 0 0 20px; }
+
+.article-body strong { font-weight: 800; color: var(--color-text); }
+
+.article-body mark,
+.mark {
+  background: linear-gradient(180deg, transparent 62%, var(--color-accent-soft) 62%);
+  color: var(--color-accent-dark);
+  font-weight: 800;
+  padding: 0 2px;
+}
+
+.article-body .warn {
+  background: linear-gradient(180deg, transparent 62%, #fde3d3 62%);
+  color: #b3541a;
+  font-weight: 800;
+  padding: 0 2px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .article-body .warn { background: linear-gradient(180deg, transparent 62%, #4a2c14 62%); color: #f0a86a; }
+}
+:root[data-theme="dark"] .article-body .warn { background: linear-gradient(180deg, transparent 62%, #4a2c14 62%); color: #f0a86a; }
 .article-body ul, .article-body ol { margin: 0 0 20px; padding-left: 1.4em; }
 .article-body li { margin-bottom: 8px; }
 
