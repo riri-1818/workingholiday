@@ -839,6 +839,14 @@ body::before {
 
 .affiliate-box .pr-inline { margin-left: 0; margin-bottom: 10px; }
 
+.affiliate-box .ad-banner {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+  margin: 12px 0 16px;
+}
+
 .affiliate-box h4 {
   font-weight: 800;
   margin: 12px 0 10px;

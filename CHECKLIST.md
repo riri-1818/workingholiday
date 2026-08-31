@@ -17,7 +17,6 @@
 - [ ] `travel-insurance-working-holiday.html` — 海外保険サービス
 - [ ] `packing-list-working-holiday.html` — 変換プラグ・渡航準備グッズ
 - [ ] `bank-account-opening.html` — 銀行口座開設の紹介プログラム(あれば)
-- [ ] `online-english-conversation.html` — オンライン英会話サービス(A8.netでネイティブキャンプ承認済み→差し替え待ち)
 - [ ] `uber-eats-guide.html` — Uber紹介コード・配達用ギア
 - [ ] `uber-eats-gear-guide.html` — モバイルバッテリー・手袋・スマホホルダー(3点)
 - [ ] `rice-cooker-guide.html` — 海外対応炊飯器2点+変圧器1点(3点、楽天アフィリエイト承認済み→リンク取得待ち)
@@ -28,6 +27,7 @@
 
 ### ✅ 完了済み(実リンク導入済み)
 - [x] `wise-money-transfer-guide.html`(新規、2026-08-31) — Wiseの実際の紹介リンクを本文に導入済み。実体験(日本のクレカ払いに使用)も反映済み
+- [x] `online-english-conversation.html`(2026-08-31) — ネイティブキャンプ(336×280バナー)+スタスタLIVE英検(300×250バナー)、両方とも実リンク導入済み。捏造していた「4.5★評価」は削除済み
 
 ---
 
