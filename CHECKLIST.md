@@ -28,21 +28,23 @@
 
 ---
 
-## B. 【要検証】事実関係を最新情報で裏取りすべき箇所
+## B. 【要検証】事実関係の裏取り — ✅ 完了(2026-08-31)
 
-- [ ] `bank-account-opening.html` — 銀行の申込条件・必要書類(各行公式サイトで確認)
-- [ ] `mygov-tfn-registration.html` — TFN申請の所要日数(ATO公式サイトで確認)
-- [ ] `esim-working-holiday-12months.html` — felix mobileのプラン・料金(公式サイトで確認)
-- [ ] `travel-insurance-working-holiday.html` — 医療相互協定(RHCA)の対象国リスト(外務省で確認)
-- [ ] `uber-eats-guide.html` — NSW州の罰金額・ABN登録要件(ATO・NSW州政府で確認)
+公式情報源で確認し、記事を修正・具体化しました。
+
+- [x] `mygov-tfn-registration.html` — TFN発行は最大28日(ATO/公開情報で確認)。雇用開始から28日以内に提出しないと45%源泉徴収、という具体的な期限も追記
+- [x] `travel-insurance-working-holiday.html` — RHCA対象は11ヶ国(英・愛・NZ・伊・白・スロベニア・マルタ・諾・瑞・芬・蘭)、Services Australia公式で確認。日本は対象外を再確認
+- [x] `uber-eats-guide.html` / `packing-list-working-holiday.html` — NSW州の罰金額を具体化: ヘルメット未着用$344、走行中スマホ操作$349(スクールゾーン内$464)
+- [x] `esim-working-holiday-12months.html` — felix mobileの実際のプラン・料金(無制限$40/月、25GB/50GB容量制プランあり)を追記
+- [x] `bank-account-opening.html` — 「渡航予定日の14日前から」という具体的な申込み開始タイミングの制限を追記(2〜3ヶ月前などの早すぎる申込みはできない、という重要な訂正)
 
 ---
 
-## C. 【推奨】実体験を足すとさらに強くなる箇所
+## C. 【推奨】実体験を足すとさらに強くなる箇所(唯一の残りタスク)
 
 - [ ] `uber-eats-guide.html` — 収入の実績値
 - [ ] `bank-account-opening.html` — 実際にどの銀行で、何日かかったか
-- [ ] `mygov-tfn-registration.html` — 実際の申請から発行までの日数
+- [ ] `mygov-tfn-registration.html` — 実際の申請から発行までの日数(制度上の上限28日は判明済み、実際の体感日数があれば)
 
 ---
 
@@ -51,7 +53,8 @@
 - [x] 選定基準の明記: about.htmlに「PRとして紹介しているのは、自分が実際に使った経験があるもの、または身の回りで実際に使っている人から見聞きしたものだけ」という編集方針を追加
 - [x] 文章の強調強化: 全12記事に`<mark>`(青ハイライト)・`<span class="warn">`(オレンジ警告ハイライト)を追加
 - [x] 楽天・A8net・Felix mobile・Wiseの実体験を8記事に反映。**「Kmartで十分」「たびほは後悔している」といった、収益より正直さを優先した内容**も含む
+- [x] 事実関係の裏取り(Bセクション)完了。TFN28日ルール、RHCA11ヶ国、NSW罰金額($344/$349)、felix mobile料金、銀行の14日前ルール、いずれも公式情報で確認・具体化
 
 ## 進め方の提案
 
-残っているのは本当に細かい部分だけです。銀行口座の紹介プログラム、または他に実体験があれば都度追加していけば十分な状態です。
+A・B・Dは完了。**残っているのはCセクション(実体験の追記)のみ**です。急ぎではないので、実際に体験したタイミングで都度教えてもらえれば反映します。
