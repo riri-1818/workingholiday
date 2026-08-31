@@ -28,6 +28,7 @@
       ".hero-premium p",
       ".hero-stats",
       ".hero-photo",
+      ".spotlight-entry",
       ".section-title",
       ".pillar-card",
       ".article-card",

@@ -20,8 +20,10 @@
 
   --font-body: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN",
     "Hiragino Sans", "Yu Gothic UI", "Noto Sans JP", sans-serif;
-  --font-serif: var(--font-body);  /* 親しみやすさ優先でゴシック統一 */
+  --font-serif: "Shippori Mincho", serif;  /* 見出しの一部だけに使うエディトリアルなアクセント */
   --font-en: var(--font-body);
+
+  --color-canvas-warm: #f8f6f2;    /* 温かみのある紙のようなキャンバス(強調ゾーン用) */
 
   --max-width: 1080px;
   --content-width: 720px;
@@ -48,6 +50,7 @@
     --color-accent: #6f92f0;
     --color-accent-dark: #93aef5;
     --color-accent-soft: #1d2740;
+    --color-canvas-warm: #20242c;
 
     --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 10px rgba(0, 0, 0, 0.25);
     --shadow-card-hover: 0 2px 6px rgba(0, 0, 0, 0.35), 0 16px 32px rgba(111, 146, 240, 0.2),
@@ -67,6 +70,7 @@
   --color-accent: #6f92f0;
   --color-accent-dark: #93aef5;
   --color-accent-soft: #1d2740;
+  --color-canvas-warm: #20242c;
 
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-card-hover: 0 18px 36px rgba(0, 0, 0, 0.5);
@@ -142,8 +146,10 @@ body::before {
 }
 
 @media (prefers-color-scheme: dark) {
-  .site-header { background: rgba(20, 23, 28, 0.88); }
+  :root:not([data-theme="light"]) .site-header { background: rgba(20, 23, 28, 0.88); }
 }
+
+:root[data-theme="dark"] .site-header { background: rgba(20, 23, 28, 0.88); }
 
 .site-header .wrap {
   display: flex;
@@ -277,7 +283,7 @@ body::before {
   font-weight: 800;
   font-size: clamp(1.7rem, 4.6vw, 2.7rem);
   line-height: 1.5;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   margin: 0 0 20px;
 }
 
@@ -385,10 +391,10 @@ body::before {
 /* ---------- Section headings ---------- */
 
 .section-title {
-  font-family: var(--font-body);
-  font-weight: 800;
-  font-size: 1.3rem;
-  letter-spacing: -0.01em;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 0.01em;
   margin: 0 0 24px;
   padding-bottom: 0;
   border-bottom: none;
@@ -396,6 +402,58 @@ body::before {
 }
 
 .section-title .accent { color: var(--color-accent); }
+
+/* ---------- Spotlight entry(SNS流入者向けの一枚案内) ---------- */
+
+.spotlight-entry {
+  background: var(--color-canvas-warm);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: clamp(24px, 4vw, 36px) clamp(20px, 5vw, 44px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 56px;
+}
+
+.spotlight-entry .spotlight-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-accent-dark);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.spotlight-entry h2 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(1.1rem, 2.4vw, 1.4rem);
+  line-height: 1.5;
+  margin: 0 0 8px;
+  color: var(--color-text);
+}
+
+.spotlight-entry p { margin: 0; color: var(--color-text-muted); font-size: 0.88rem; max-width: 480px; }
+
+.spotlight-entry .btn-spotlight {
+  flex: none;
+  background: var(--color-accent);
+  color: #fff;
+  padding: 13px 26px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.88rem;
+  white-space: nowrap;
+  box-shadow: 0 10px 22px rgba(53, 99, 233, 0.22);
+  transition: background 0.25s var(--ease), transform 0.25s var(--ease);
+}
+
+.spotlight-entry .btn-spotlight:hover { background: var(--color-accent-dark); transform: translateY(-2px); }
 
 /* ---------- Pillar cards ---------- */
 
@@ -436,6 +494,14 @@ body::before {
   font-size: 0.9rem;
   font-weight: 800;
   margin-bottom: 14px;
+}
+
+.pillar-card .who {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  margin-bottom: 6px;
 }
 
 .pillar-card h3 { margin: 0 0 8px; font-size: 1.05rem; font-family: var(--font-body); font-weight: 700; }
