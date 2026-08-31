@@ -29,6 +29,7 @@
       ".hero-stats",
       ".hero-photo",
       ".spotlight-entry",
+      ".crossroads-caption",
       ".section-title",
       ".pillar-card",
       ".article-card",
@@ -530,7 +531,57 @@
     onScroll();
   }
 
+  /* ---------- 人生の岐路アニメーション(SVGのライン描画 + 棒人間) ---------- */
+  function initCrossroads() {
+    var visual = document.querySelector(".crossroads-visual");
+    if (!visual) return;
+
+    var reduceMotion =
+      window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    var paths = Array.prototype.slice.call(visual.querySelectorAll(".life-path, .branch-path"));
+
+    paths.forEach(function (p) {
+      try {
+        var len = p.getTotalLength();
+        p.style.strokeDasharray = len + " " + len;
+        p.style.strokeDashoffset = reduceMotion ? 0 : len;
+      } catch (e) {
+        /* getTotalLengthが使えない環境ではCSSのフォールバック(1 1)に任せる */
+      }
+    });
+
+    var drawn = false;
+    function draw() {
+      if (drawn) return;
+      drawn = true;
+      visual.classList.add("is-drawn");
+      paths.forEach(function (p) {
+        p.style.strokeDashoffset = "0";
+      });
+    }
+
+    if (reduceMotion) {
+      draw();
+      return;
+    }
+
+    var failSafeTimer = window.setTimeout(draw, 2200);
+
+    function check() {
+      var rect = visual.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.85 && rect.bottom > 0) {
+        draw();
+        window.removeEventListener("scroll", check);
+        window.clearTimeout(failSafeTimer);
+      }
+    }
+    window.addEventListener("scroll", check, { passive: true });
+    check();
+  }
+
   safe("reveal", initReveal);
+  safe("crossroads", initCrossroads);
   safe("themeToggle", initThemeToggle);
   safe("readingProgress", initReadingProgress);
   safe("tocHighlight", initTocHighlight);
