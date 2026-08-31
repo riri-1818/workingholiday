@@ -125,6 +125,7 @@ Qiitaの「動的サイトを作るJSライブラリ26選」的な記事を参�
 - [x] `robots.txt` / `sitemap.xml` を追加(検索エンジンのクロール・インデックス登録を助ける)
 - [ ] Google Search Console / Bing Webmaster Toolsへの登録(本人のGoogleアカウントでの手動登録が必要なため未対応。sitemap.xmlのURLをそのまま登録すればOK)
 - [ ] OGP画像は今のところ各記事のカバー写真(Unsplash)をそのまま使用。ブランドロゴ入りの専用OGP画像(1200×630px)を作るとより見栄えが良くなる
+- [x] Google Analytics(GA4)を導入(2026-08-31)。計測ID `G-0YM2E9G892` のgtag.jsスニペットを全19ページの`<head>`に設置し、本番反映を確認済み
 
 ## 次にやること
 
