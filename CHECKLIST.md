@@ -8,9 +8,9 @@
 
 `[ここに◯◯を入れる]`のプレースホルダーがそのまま表示されている状態です。ASPの提携申請が通り次第、実際の商品名・サービス名・リンクに差し替えてください。
 
-### 執筆者プロフィール(全11記事 + about.html 共通、12箇所)
+### 執筆者プロフィール(全12記事 + about.html 共通、13箇所)
 - [ ] `about.html` — 運営者について(氏名・経歴)
-- [ ] 各記事末尾の「この記事を書いた人[氏名を入れる]」— 11記事すべて
+- [ ] 各記事末尾の「この記事を書いた人[氏名を入れる]」— 12記事すべて
 
 > 一括で直せます。氏名(本名でもニックネームでも可)と一言経歴を教えてもらえれば、俺が全記事まとめて差し替えます。
 
@@ -19,14 +19,17 @@
 - [ ] `travel-insurance-working-holiday.html` — 海外保険サービス
 - [ ] `packing-list-working-holiday.html` — 変換プラグ・渡航準備グッズ
 - [ ] `bank-account-opening.html` — 銀行口座開設の紹介プログラム(あれば)
-- [ ] `online-english-conversation.html` — オンライン英会話サービス
+- [ ] `online-english-conversation.html` — オンライン英会話サービス(A8.netでネイティブキャンプ承認済み→差し替え待ち)
 - [ ] `uber-eats-guide.html` — Uber紹介コード・配達用ギア
 - [ ] `uber-eats-gear-guide.html` — モバイルバッテリー・手袋・スマホホルダー(3点)
-- [ ] `rice-cooker-guide.html` — 海外対応炊飯器2点+変圧器1点(3点)
-- [ ] `laundry-net-guide.html` — 洗濯ネット3点
-- [ ] `daily-life-extras-guide.html` — 水筒・変圧器・味噌汁(3点)
+- [ ] `rice-cooker-guide.html` — 海外対応炊飯器2点+変圧器1点(3点、楽天アフィリエイト承認済み→リンク取得待ち)
+- [ ] `laundry-net-guide.html` — 洗濯ネット3点(楽天アフィリエイト承認済み→リンク取得待ち)
+- [ ] `daily-life-extras-guide.html` — 水筒・変圧器・味噌汁(3点、楽天アフィリエイト承認済み→リンク取得待ち)
 
 > ASPの提携申請が通った商品から順に埋めていけばOK。全部揃ってから公開する必要はなく、埋まった記事から本物として機能します。
+
+### ✅ 完了済み(実リンク導入済み)
+- [x] `wise-money-transfer-guide.html`(新規、2026-08-31) — Wiseの実際の紹介リンクを本文に導入済み。実体験(日本のクレカ払いに使用)も反映済み
 
 ---
 
