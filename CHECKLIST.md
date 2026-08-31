@@ -50,7 +50,7 @@
 
 ## C. 【推奨】実体験を足すとさらに強くなる箇所(唯一の残りタスク)
 
-- [ ] `uber-eats-guide.html` — 収入の実績値
+- [x] `uber-eats-guide.html` — 収入の実績値(2026-08-31追記: 副業で週800ドル弱)
 - [ ] `bank-account-opening.html` — 実際にどの銀行で、何日かかったか
 - [ ] `mygov-tfn-registration.html` — 実際の申請から発行までの日数(制度上の上限28日は判明済み、実際の体感日数があれば)
 
