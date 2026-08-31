@@ -1,5 +1,7 @@
 # ワーホリ実務ノート
 
+**公開前チェックリストは [CHECKLIST.md](CHECKLIST.md) を参照。** プレースホルダー・要検証事項・実体験を足すべき箇所を優先度別にまとめてある。
+
 オーストラリアへのワーキングホリデー・留学で「渡航後に初めて困ること」を先回りで解決する、実務特化の静的アフィリエイトサイト。
 
 **公開URL: https://riri-1818.github.io/workingholiday/**(2026-08-30 GitHub Pagesで公開済み。リポジトリ: https://github.com/riri-1818/workingholiday )
