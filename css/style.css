@@ -422,23 +422,60 @@ body::before {
   stroke: var(--color-ink);
   stroke-width: 3;
   stroke-linecap: round;
+  stroke-linejoin: round;
   opacity: 0;
   transition: opacity 0.5s var(--ease) 1.6s;
 }
 
 .stick-figure circle { fill: var(--color-surface); }
+.figure-eye { fill: var(--color-ink); stroke: none; }
+.figure-arm circle { fill: var(--color-ink); stroke: none; }
 
 .crossroads-visual.is-drawn .stick-figure { opacity: 1; }
 
+/* 迷って足踏み・腕を揺らしながら、頭できょろきょろ左右を見る */
+
+.crossroads-visual.is-drawn .figure-body-wrap {
+  animation: figureBob 1.7s ease-in-out 1.9s infinite;
+}
+
 .crossroads-visual.is-drawn .figure-head {
-  animation: figureLook 2.6s ease-in-out 2.3s infinite;
+  animation: figureLook 2.8s ease-in-out 2.2s infinite;
   transform-origin: 0px -42px;
+}
+
+.crossroads-visual.is-drawn .figure-leg-left {
+  animation: figureLegSwing 1.7s ease-in-out 1.9s infinite;
+}
+.crossroads-visual.is-drawn .figure-leg-right {
+  animation: figureLegSwing 1.7s ease-in-out 1.9s infinite reverse;
+}
+.crossroads-visual.is-drawn .figure-arm-left {
+  animation: figureArmSwing 1.7s ease-in-out 1.9s infinite reverse;
+}
+.crossroads-visual.is-drawn .figure-arm-right {
+  animation: figureArmSwing 1.7s ease-in-out 1.9s infinite;
 }
 
 @keyframes figureLook {
   0%, 100% { transform: rotate(0deg); }
-  25% { transform: rotate(-16deg); }
-  70% { transform: rotate(14deg); }
+  25% { transform: rotate(-18deg); }
+  70% { transform: rotate(16deg); }
+}
+
+@keyframes figureBob {
+  0%, 50%, 100% { transform: translateY(0); }
+  25%, 75% { transform: translateY(-2.5px); }
+}
+
+@keyframes figureLegSwing {
+  0%, 100% { transform: rotate(-11deg); }
+  50% { transform: rotate(11deg); }
+}
+
+@keyframes figureArmSwing {
+  0%, 100% { transform: rotate(-14deg); }
+  50% { transform: rotate(14deg); }
 }
 
 .crossroads-caption {
@@ -454,7 +491,12 @@ body::before {
 
 @media (prefers-reduced-motion: reduce) {
   .life-path, .branch-path, .age-marker, .branch-label, .stick-figure { transition: none !important; }
-  .crossroads-visual.is-drawn .figure-head { animation: none !important; }
+  .crossroads-visual.is-drawn .figure-head,
+  .crossroads-visual.is-drawn .figure-body-wrap,
+  .crossroads-visual.is-drawn .figure-leg-left,
+  .crossroads-visual.is-drawn .figure-leg-right,
+  .crossroads-visual.is-drawn .figure-arm-left,
+  .crossroads-visual.is-drawn .figure-arm-right { animation: none !important; }
 }
 
 /* ---------- Ticker(横スクロールする帯) ---------- */
