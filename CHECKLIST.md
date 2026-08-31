@@ -64,6 +64,7 @@
 - [x] 事実関係の裏取り(Bセクション)完了。TFN28日ルール、RHCA11ヶ国、NSW罰金額($344/$349)、felix mobile料金、銀行の14日前ルール、いずれも公式情報で確認・具体化
 - [x] Google Analytics(GA4)導入(2026-08-31): 計測ID `G-0YM2E9G892` のgtag.jsを全19ページ(index/about/記事12本/カテゴリ5本)の`<head>`に設置。本番反映済み。
 - [x] 新記事追加(2026-08-31): 「交換留学に落ちた人へ。ワーホリという選択肢を考えるための比較と、よくある不安への答え」(`articles/working-holiday-after-rejection.html`)。渡航前準備カテゴリに追加。rei自身の実体験(GPA1.19→交換留学全落ち→ワーホリ選択)がベース。index.html・category/pre-departure.html・sitemap.xmlに反映済み
+- [x] 新記事追加(2026-08-31): 「オーストラリアワーホリ、ビザ申請の条件・必要書類・手順を全部まとめました」(`articles/working-holiday-visa-guide.html`)。渡航前準備カテゴリに追加。日本ワーキングホリデー協会・オーストラリア移民局関連情報等をリサーチして作成。年齢条件(18〜30歳)・資金目安(AUD5,000)・申請料(AUD670)・ImmiAccountでの申請フロー・入国期限の2つの12ヶ月ルール・渡航前後の全体タイムラインを整理。index.html・category/pre-departure.html・sitemap.xmlに反映済み、記事数15本に更新
 - [x] 新記事追加(2026-08-31): 「IELTS独学対策、4.0から6.0まで上げた方法」(`articles/ielts-study-guide.html`)。英語学習サービスカテゴリに追加。楽天(過去問Cambridge IELTS19・IDP公認問題集・文脈で覚えるIELTS英単語、いずれも実際使用)+ネイティブキャンプ(a8mat=4BAITN+DBVECY+35VG+6B70H、スピーキング4.0→5.5の実体験)のアフィリンクを掲載。index.html・category/english-learning.html・sitemap.xmlに反映済み、記事数14本に更新
 
 ## 進め方の提案
