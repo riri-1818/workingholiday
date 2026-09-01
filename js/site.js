@@ -229,36 +229,6 @@
     });
   }
 
-  /* ---------- 7) カードの3Dチルト(立体感) ---------- */
-  function initTilt() {
-    if (!canHover) return;
-    var cards = document.querySelectorAll(".pillar-card, .article-card, .rank-item");
-    cards.forEach(function (card) {
-      card.classList.add("tilt-ready");
-      var raf = null;
-      card.addEventListener("mousemove", function (e) {
-        if (raf) return;
-        raf = window.requestAnimationFrame(function () {
-          var rect = card.getBoundingClientRect();
-          var x = (e.clientX - rect.left) / rect.width - 0.5;
-          var y = (e.clientY - rect.top) / rect.height - 0.5;
-          var rotateX = (-y * 8).toFixed(2);
-          var rotateY = (x * 10).toFixed(2);
-          card.style.transform =
-            "perspective(900px) rotateX(" +
-            rotateX +
-            "deg) rotateY(" +
-            rotateY +
-            "deg) translateY(-6px) scale(1.015)";
-          raf = null;
-        });
-      });
-      card.addEventListener("mouseleave", function () {
-        card.style.transform = "";
-      });
-    });
-  }
-
   /* ---------- 8) ヒーロー写真のパララックス ---------- */
   function initParallax() {
     var photo = document.querySelector(".hero-photo");
@@ -587,7 +557,6 @@
   safe("tocHighlight", initTocHighlight);
   safe("backToTop", initBackToTop);
   safe("ripple", initRipple);
-  safe("tilt", initTilt);
   safe("parallax", initParallax);
   safe("countUp", initCountUp);
   safe("particles", initParticles);

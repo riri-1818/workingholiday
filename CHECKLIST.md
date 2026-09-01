@@ -4,6 +4,38 @@
 
 ---
 
+## SEO大改修(2026-09-01)
+
+チャッピー(ChatGPT)の診断を受けて技術SEOを一括で入れた。反映内容:
+
+- 全24ページに `canonical` タグを追加(リポジトリ名変更に伴う重複URL対策)
+- 全24ページに構造化データ(JSON-LD)を追加: 記事は `Article`+著者`Person`(rei)+`BreadcrumbList`、カテゴリは `CollectionPage`+`BreadcrumbList`、トップは `WebSite`+`Organization`、aboutは `AboutPage`+`Person`
+- 全記事・全カテゴリに視覚的パンくずリストを追加
+- 全17記事の末尾に「あわせて読みたい」内部リンク(トピッククラスター設計)を追加
+- 記事の日付を `<time datetime>` で機械可読に
+- `sitemap.xml`: 抜けていた `wise-money-transfer-guide` を追加、`uber-eats-2026-rules` を追加、全URLに `lastmod`
+- 演出削減: 横スクロールティッカー(index)と3Dチルト(JS/CSS)を撤去
+- Uber記事を3分割:
+  - `uber-eats-guide.html` — 「始め方」に特化してリタイトル(収入セクションは分離)
+  - `uber-eats-2026-rules.html` — **新規・公開可**。2026-08-17施行の最低報酬基準($31.30/h等)を公式情報ベースで作成
+  - `uber-eats-income.html` — **新規・noindex(公開準備中)**。reiの実収入データ待ち(下記C参照)
+
+### この改修後にreiがやること(手作業)
+
+- [ ] **Google Search Console に登録**(本人のGoogleアカウントが必要)。sitemap URL `https://riri-1818.github.io/workingholiday/sitemap.xml` を送信 → Indexed pages / Impressions / Queries / Average position を確認
+- [ ] Bing Webmaster Tools にも同様に登録(任意)
+- [ ] `uber-eats-income.html` に実収入データ(売上スクショ・稼働時間・時間帯/曜日/エリア別・e-bikeレンタル代等の経費・実質時給・雨の日)を記入 → `<meta name="robots" content="noindex">` 行を削除 → sitemap.xml に追加 → index.html と category/income.html にカードを追加
+- [ ] `uber-eats-2026-rules.html` の「配達員としてどう受け止めているか」に施行前後の体感を追記
+- [ ] (中期)独自ドメイン検討。`riri-1818.github.io/workingholiday/` はサブディレクトリなのでサイト名・被リンクの蓄積で不利。手応えが出てから
+
+### まだ書けていないが伸ばすなら重要(reiの実体験が必要)
+
+- [ ] 「オーストラリアワーホリ到着後1週間にやること」ハブ記事(SIM→銀行→TFN→myGov→家→仕事→RSA→給与を時系列で並べ、既存記事へ送る入口ページ)
+- [ ] 仕事探しクラスター(レジュメの書き方 / Seek・Indeed・JAMS比較 / unpaid trialは合法か / payslipの見方 / casual loadingとは / RSA・Food Handlerの取り方 など、実際の応募・面接・トライアル経験ベースで)
+- [ ] 家探しクラスター(bondとは / inspectionで見るところ / エリア選び / Opal・交通)
+
+---
+
 ## A. 【最優先】プレースホルダー・アフィリエイトボックス
 
 ### ✅ 執筆者プロフィール(全12記事 + about.html) — 完了(2026-08-31)
