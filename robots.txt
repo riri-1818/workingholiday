@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /tt/
+Disallow: /ig/
 
 Sitemap: https://riri-1818.github.io/workingholiday/sitemap.xml
