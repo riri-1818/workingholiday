@@ -98,6 +98,38 @@
     check();
   }
 
+  /* ---------- 1.5) ヘッダーのカテゴリメニュー(クリック/タップ開閉) ---------- */
+  function initNavMenu() {
+    var wrap = document.querySelector(".has-menu");
+    if (!wrap) return;
+    var btn = wrap.querySelector(".nav-menu-btn");
+    if (!btn) return;
+
+    function close() {
+      wrap.classList.remove("is-open");
+      btn.setAttribute("aria-expanded", "false");
+    }
+    function toggle() {
+      var open = wrap.classList.toggle("is-open");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      toggle();
+    });
+    document.addEventListener("click", function (e) {
+      if (!wrap.contains(e.target)) close();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") close();
+    });
+    // メニュー内のリンクを押したら閉じる(同一ページ内アンカーのとき用)
+    wrap.querySelectorAll(".nav-menu a").forEach(function (a) {
+      a.addEventListener("click", close);
+    });
+  }
+
   /* ---------- 2) ダークモード手動切り替え ---------- */
   function initThemeToggle() {
     var nav = document.querySelector(".site-nav");
@@ -189,6 +221,37 @@
     }
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
+  }
+
+  /* ---------- 4.5) ワーホリの流れ(インタラクティブ) ---------- */
+  function initJourney() {
+    var root = document.getElementById("journey");
+    if (!root) return;
+    var steps = Array.prototype.slice.call(root.querySelectorAll(".journey-step"));
+    var panels = Array.prototype.slice.call(root.querySelectorAll(".journey-panel"));
+    if (!steps.length || steps.length !== panels.length) return;
+
+    function activate(i) {
+      steps.forEach(function (s, idx) {
+        s.classList.toggle("is-active", idx === i);
+        s.setAttribute("aria-selected", idx === i ? "true" : "false");
+      });
+      panels.forEach(function (p, idx) {
+        p.classList.toggle("is-active", idx === i);
+      });
+    }
+
+    steps.forEach(function (s, i) {
+      s.addEventListener("click", function () { activate(i); });
+      s.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+          e.preventDefault(); var n = (i + 1) % steps.length; activate(n); steps[n].focus();
+        } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+          e.preventDefault(); var p = (i - 1 + steps.length) % steps.length; activate(p); steps[p].focus();
+        }
+      });
+    });
+    activate(0);
   }
 
   /* ---------- 5) トップへ戻るボタン ---------- */
@@ -551,8 +614,10 @@
   }
 
   safe("reveal", initReveal);
+  safe("navMenu", initNavMenu);
   safe("crossroads", initCrossroads);
   safe("themeToggle", initThemeToggle);
+  safe("journey", initJourney);
   safe("readingProgress", initReadingProgress);
   safe("tocHighlight", initTocHighlight);
   safe("backToTop", initBackToTop);

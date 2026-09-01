@@ -169,9 +169,9 @@ body::before {
 
 .site-logo span { color: var(--color-accent); }
 
-.site-nav { display: flex; gap: 28px; list-style: none; margin: 0; padding: 0; }
+.site-nav { display: flex; align-items: center; gap: 26px; list-style: none; margin: 0; padding: 0; }
 
-.site-nav a {
+.site-nav > li > a {
   color: var(--color-text-muted);
   text-decoration: none;
   font-size: 0.9rem;
@@ -179,7 +179,118 @@ body::before {
   transition: color 0.25s var(--ease);
 }
 
-.site-nav a:hover { color: var(--color-accent); }
+.site-nav > li > a:hover { color: var(--color-accent); }
+
+/* ---------- ヘッダーのカテゴリdrop-down ---------- */
+
+.has-menu { position: relative; }
+
+.nav-menu-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 8px 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.25s var(--ease);
+}
+
+.nav-menu-btn:hover,
+.has-menu.is-open .nav-menu-btn { color: var(--color-accent); }
+
+.nav-menu-btn .care { font-size: 0.7rem; transition: transform 0.3s var(--ease); }
+.has-menu.is-open .nav-menu-btn .care { transform: rotate(180deg); }
+
+/* ハンバーガー(スマホでのみ表示) */
+.nmb-bars {
+  display: none;
+  width: 22px;
+  height: 16px;
+  position: relative;
+}
+.nmb-bars::before,
+.nmb-bars::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+}
+.nmb-bars::before { top: 1px; box-shadow: 0 6px 0 currentColor; }
+.nmb-bars::after { bottom: 1px; }
+
+.nav-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: min(340px, calc(100vw - 32px));
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card-hover);
+  padding: 8px;
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity 0.22s var(--ease), transform 0.22s var(--ease);
+  z-index: 30;
+}
+
+.has-menu.is-open .nav-menu { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+.nav-menu a {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 12px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  color: var(--color-text);
+  transition: background 0.2s var(--ease);
+}
+
+.nav-menu a:hover { background: var(--color-accent-soft); }
+
+.nav-menu .nm-num {
+  flex: none;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 0.8rem;
+  color: var(--color-accent);
+  padding-top: 2px;
+}
+
+.nav-menu .nm-t { font-weight: 700; font-size: 0.94rem; line-height: 1.5; }
+.nav-menu .nm-d {
+  display: block;
+  font-weight: 500;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+.nav-menu .nm-all {
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--color-accent-dark);
+  margin-top: 4px;
+  border-top: 1px solid var(--color-border);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .has-menu:hover .nav-menu { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .has-menu:hover .nav-menu-btn { color: var(--color-accent); }
+  .has-menu:hover .nav-menu-btn .care { transform: rotate(180deg); }
+}
 
 .theme-toggle {
   background: var(--color-surface-alt);
@@ -585,6 +696,104 @@ body::before {
 }
 
 .spotlight-entry .btn-spotlight:hover { background: var(--color-accent-dark); transform: translateY(-2px); }
+
+/* ---------- ワーホリの流れ(インタラクティブ) ---------- */
+
+.journey { padding: 0 0 64px; }
+
+.journey-steps {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 22px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.journey-step {
+  flex: 1 0 auto;
+  min-width: 116px;
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 14px 12px;
+  cursor: pointer;
+  font: inherit;
+  color: var(--color-text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.25s var(--ease), border-color 0.25s var(--ease), color 0.25s var(--ease);
+}
+
+.journey-step .js-num {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--color-border);
+  color: var(--color-text);
+  font-weight: 800;
+  font-size: 0.82rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.25s var(--ease), color 0.25s var(--ease);
+}
+
+.journey-step .js-label { font-size: 0.82rem; font-weight: 700; white-space: nowrap; }
+
+.journey-step:hover { border-color: var(--color-accent); color: var(--color-text); }
+
+.journey-step.is-active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+.journey-step.is-active .js-num { background: rgba(255, 255, 255, 0.25); color: #fff; }
+
+.journey-panel {
+  display: none;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 24px 26px;
+  box-shadow: var(--shadow-card);
+  animation: journeyFade 0.35s var(--ease);
+}
+.journey-panel.is-active { display: block; }
+
+@keyframes journeyFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.journey-lead {
+  margin: 0 0 14px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-text);
+}
+
+.journey-panel ul { margin: 0; padding: 0; list-style: none; }
+.journey-panel li { border-top: 1px solid var(--color-border); }
+.journey-panel li:first-child { border-top: 0; }
+.journey-panel a {
+  display: block;
+  padding: 13px 0;
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.55;
+  transition: color 0.2s var(--ease);
+}
+.journey-panel a:hover { color: var(--color-accent-dark); }
+.journey-panel a::after { content: " ›"; color: var(--color-text-muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  .journey-panel { animation: none; }
+}
 
 /* ---------- Pillar cards ---------- */
 
@@ -1307,7 +1516,26 @@ body::before {
 /* ---------- Responsive ---------- */
 
 @media (max-width: 640px) {
-  .site-nav { gap: 14px; }
+  .site-header .wrap { height: 58px; }
+  .site-header nav { flex: 0 0 auto; }
+  .site-logo { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .site-logo { font-size: 1rem; }
+  .site-nav { gap: 8px; }
+  /* スマホ: 独立した「このサイトについて」リンク(2番目のli)は隠す。メニュー内とフッターにある */
+  .site-nav > li:nth-child(2) { display: none; }
+  /* スマホ: カテゴリボタンはハンバーガーだけ */
+  .nmb-label,
+  .nav-menu-btn .care { display: none; }
+  .nmb-bars { display: block; }
+  .nav-menu-btn { padding: 8px 6px; }
+  .nav-menu { top: calc(100% + 8px); }
   .hero-premium { padding: 56px 0 0; }
   .article-header { padding: 32px 16px 16px; }
+}
+
+.nav-menu .nm-about {
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
 }

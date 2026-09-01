@@ -61,7 +61,20 @@
     <a href="index.html" class="site-logo">ワーホリ<span>実務</span>ノート</a>
     <nav>
       <ul class="site-nav">
-        <li><a href="index.html#pillars">記事カテゴリ</a></li>
+        <li class="has-menu">
+          <button type="button" class="nav-menu-btn" aria-expanded="false" aria-controls="nav-menu-panel" aria-label="メニュー">
+            <span class="nmb-bars" aria-hidden="true"></span><span class="nmb-label">記事カテゴリ</span> <span class="care" aria-hidden="true">▾</span>
+          </button>
+          <div class="nav-menu" id="nav-menu-panel">
+            <a href="category/pre-departure.html"><span class="nm-num">01</span><span class="nm-t">渡航前準備<span class="nm-d">保険・持ち物・ビザ・ワーホリとは</span></span></a>
+            <a href="category/practical-life.html"><span class="nm-num">02</span><span class="nm-t">渡航後の実務<span class="nm-d">銀行口座・myGov・TFN・海外送金</span></span></a>
+            <a href="category/income.html"><span class="nm-num">03</span><span class="nm-t">現地での収入<span class="nm-d">Uber Eats・2026年の新ルール</span></span></a>
+            <a href="category/english-learning.html"><span class="nm-num">04</span><span class="nm-t">英語学習サービス<span class="nm-d">オンライン英会話・IELTS</span></span></a>
+            <a href="category/gear.html"><span class="nm-num">05</span><span class="nm-t">現地生活グッズ<span class="nm-d">炊飯器・洗濯ネット・消耗品</span></span></a>
+            <a href="index.html#pillars" class="nm-all">記事一覧をぜんぶ見る →</a>
+            <a href="about.html" class="nm-about">このサイトについて / PR表記</a>
+          </div>
+        </li>
         <li><a href="about.html">このサイトについて</a></li>
       </ul>
     </nav>
@@ -149,6 +162,76 @@
       <p>交換留学に落ちて、ワーホリという選択肢にたどり着いた話。動画で見た内容の続きは、ここに書いています。</p>
     </div>
     <a href="articles/working-holiday-after-rejection.html" class="btn-spotlight">この記事を読む →</a>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section-head">
+    <span class="section-kicker">The whole journey</span>
+    <h2 class="section-title">ワーホリの流れと、この中で読めること</h2>
+  </div>
+  <div class="journey" id="journey">
+    <div class="journey-steps" role="tablist" aria-label="ワーホリの流れ">
+      <button type="button" class="journey-step is-active" role="tab" aria-selected="true" data-step="0">
+        <span class="js-num">1</span><span class="js-label">行くか決める</span>
+      </button>
+      <button type="button" class="journey-step" role="tab" aria-selected="false" data-step="1">
+        <span class="js-num">2</span><span class="js-label">渡航前に準備</span>
+      </button>
+      <button type="button" class="journey-step" role="tab" aria-selected="false" data-step="2">
+        <span class="js-num">3</span><span class="js-label">着いてすぐ</span>
+      </button>
+      <button type="button" class="journey-step" role="tab" aria-selected="false" data-step="3">
+        <span class="js-num">4</span><span class="js-label">生活を整える</span>
+      </button>
+      <button type="button" class="journey-step" role="tab" aria-selected="false" data-step="4">
+        <span class="js-num">5</span><span class="js-label">稼ぐ・伸ばす</span>
+      </button>
+    </div>
+
+    <div class="journey-panel is-active" role="tabpanel" data-panel="0">
+      <p class="journey-lead">ワーホリって何なのか、留学と何が違うのか。決める前に読むところ。</p>
+      <ul>
+        <li><a href="articles/working-holiday-basics.html">ワーホリとは？年齢・費用・稼げる額まで30秒で整理</a></li>
+        <li><a href="articles/working-holiday-after-rejection.html">交換留学に落ちた人へ。ワーホリという選択肢の考え方</a></li>
+        <li><a href="articles/working-holiday-mindset.html">ワーホリは遊びじゃない。動き方次第でかなり変わる話</a></li>
+      </ul>
+    </div>
+    <div class="journey-panel" role="tabpanel" data-panel="1">
+      <p class="journey-lead">ビザ・保険・持ち物・SIM。出発までに決めておくところ。</p>
+      <ul>
+        <li><a href="articles/working-holiday-visa-guide.html">ビザ申請の条件・必要書類・手順・費用</a></li>
+        <li><a href="articles/travel-insurance-working-holiday.html">海外旅行保険、普通の旅行保険でいいのか</a></li>
+        <li><a href="articles/packing-list-working-holiday.html">持ち物リスト、現地調達でいいものまで分けて整理</a></li>
+        <li><a href="articles/esim-working-holiday-12months.html">eSIMは「30日制限」に注意。SIMの選び方</a></li>
+      </ul>
+    </div>
+    <div class="journey-panel" role="tabpanel" data-panel="2">
+      <p class="journey-lead">着いた最初の数週間でやる手続き。順番を間違えると詰まる。</p>
+      <ul>
+        <li><a href="articles/esim-working-holiday-12months.html">豪州の電話番号を用意する（2段階認証で必要）</a></li>
+        <li><a href="articles/bank-account-opening.html">銀行口座、渡航前オンライン申込→到着後の受け取り</a></li>
+        <li><a href="articles/mygov-tfn-registration.html">myGov登録とTFN申請、働き始める前にやる理由</a></li>
+      </ul>
+    </div>
+    <div class="journey-panel" role="tabpanel" data-panel="3">
+      <p class="journey-lead">家・お金の流れ・生活グッズ。暮らしを回すところ。</p>
+      <ul>
+        <li><a href="articles/wise-money-transfer-guide.html">日本のクレカ払い問題、Wiseで解決している話</a></li>
+        <li><a href="articles/rice-cooker-guide.html">炊飯器、日本から持っていくべきか</a></li>
+        <li><a href="articles/laundry-net-guide.html">洗濯ネットが地味に必須な理由</a></li>
+        <li><a href="articles/daily-life-extras-guide.html">渡航後の生活で地味に助かった消耗品</a></li>
+      </ul>
+    </div>
+    <div class="journey-panel" role="tabpanel" data-panel="4">
+      <p class="journey-lead">収入源をつくる。英語を伸ばす。ワーホリの本番。</p>
+      <ul>
+        <li><a href="articles/uber-eats-guide.html">【2026年】Uber Eats配達を始める方法（ABN・税金・罰金）</a></li>
+        <li><a href="articles/uber-eats-2026-rules.html">Uber Eatsの最低報酬が時給$31.30に。2026年の新ルール</a></li>
+        <li><a href="articles/online-english-conversation.html">オンライン英会話、目的別に選ばないと続かない理由</a></li>
+        <li><a href="articles/ielts-study-guide.html">IELTS独学対策、4.0から6.0まで上げた方法</a></li>
+      </ul>
+    </div>
   </div>
 </div>
 
